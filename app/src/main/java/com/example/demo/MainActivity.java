@@ -15,6 +15,10 @@ import com.example.demo.databinding.ActivityMainBinding;
 public class MainActivity extends Activity {
 
     private TextView mTextView;
+    private TextView tv2;
+    private TextView tv3;
+    private TextView tv4;
+
     private ActivityMainBinding binding;
 
 
@@ -30,8 +34,13 @@ public class MainActivity extends Activity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //mTextView = binding.text;
+        tv2 = findViewById(R.id.textView2);
+        tv3 = findViewById(R.id.textView3);
+        tv4 = findViewById(R.id.textView4);
 
-        mTextView = binding.text;
+
+
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
@@ -46,11 +55,26 @@ public class MainActivity extends Activity {
         gyroscopeEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
+                //z
                 if (sensorEvent.values[2] > 0.5f){
-                    mTextView.setText("left");
+                    tv2.setText("turn left");
                 } else if (sensorEvent.values[2] < -0.5f){
-                    mTextView.setText("right");
+                    tv2.setText("turn right");
                 }
+                //y
+                if (sensorEvent.values[1] > 0.5f){
+                    tv3.setText("roll right");
+                } else if (sensorEvent.values[1] < -0.5f){
+                    tv3.setText("roll left");
+                }
+                //x
+                if (sensorEvent.values[0] > 0.5f){
+                    tv4.setText("pith down");
+                } else if (sensorEvent.values[0] < -0.5f){
+                    tv4.setText("pith up");
+                }
+
+
             }
 
             @Override
